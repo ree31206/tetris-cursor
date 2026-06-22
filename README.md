@@ -1,2 +1,75 @@
-# tetris-cursor
-Browser Tetris game built with Cursor AI (workbook ch.4-6). Deployed on GitHub Pages.
+# Tetris (Cursor 실습)
+
+순수 HTML/CSS/JavaScript로 만든 브라우저 테트리스 게임입니다. 빌드 도구나 외부 라이브러리 없이 `index.html`을 열기만 하면 바로 실행됩니다. Cursor AI 워크북 4장(제작) ~ 6장(검증)을 따라 단계별 품질 게이트를 거쳐 제작했습니다.
+
+## 배포 링크
+
+- GitHub Pages: https://ree31206.github.io/tetris-cursor/
+
+## 실행 방법
+
+### 방법 1. 파일 직접 열기
+
+저장소를 내려받은 뒤 `index.html`을 브라우저로 엽니다.
+
+### 방법 2. 로컬 서버 (권장)
+
+```bash
+# Python 3
+python -m http.server 8000
+# 브라우저에서 http://localhost:8000 접속
+```
+
+## 조작법
+
+| 키 | 동작 |
+| --- | --- |
+| ← / → | 좌우 이동 |
+| ↑ | 회전 (시계 방향) |
+| ↓ | 소프트 드롭 (한 칸 내리기) |
+| Space | 하드 드롭 (즉시 바닥까지) |
+| P | 일시정지 / 계속 |
+| R | 다시 시작 |
+
+게임 시작 시 `R` 키를 누르면 플레이가 시작됩니다.
+
+## 기능 목록
+
+- 10 x 20 보드와 7종 테트로미노(I, J, L, O, S, T, Z) 및 회전
+- 중력 기반 자동 낙하 (레벨이 오를수록 빨라짐)
+- 벽/바닥/스택 충돌 판정과 회전 시 wall kick
+- 라인 삭제(동시 다중 라인 처리)와 점수·라인·레벨 집계
+- 다음 조각(NEXT) 미리보기
+- 일시정지 / 게임 오버 / 다시 시작
+- 키보드 조작 (이동·회전·소프트/하드 드롭)
+
+## 점수 규칙
+
+- 1/2/3/4줄 동시 삭제: 100 / 300 / 500 / 800점 (현재 레벨 배수 적용)
+- 하드 드롭: 떨어진 칸당 2점
+- 10줄마다 레벨 +1 (낙하 속도 증가)
+
+## 파일 구성
+
+```
+tetris-cursor/
+├── index.html   # 구조: 보드/점수/다음조각/조작법
+├── style.css    # 스타일
+├── script.js    # 게임 로직 (데이터 / 렌더링 / 로직 / 입력 분리)
+├── README.md
+└── .cursor/
+    ├── commands/   # 슬래시 품질 게이트 명령 (5장)
+    └── agents/     # 검증 Subagents (6장)
+```
+
+## 품질 게이트 (워크북 4~6장)
+
+제작 단계마다 `.cursor/commands`의 슬래시 명령으로 점검했습니다.
+
+| 단계 | 게이트 |
+| --- | --- |
+| 보드/테트로미노 정의 | `/code-review` |
+| 자동 낙하·충돌 | `/review-game-logic` |
+| 키보드 조작 | `/qa-playtest` |
+| 라인삭제·점수·게임오버 | `/bug-hunt`, `/refactor-safe` |
+| 배포 전 | `/release-check` |
