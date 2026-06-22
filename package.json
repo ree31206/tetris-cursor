@@ -1,0 +1,10 @@
+{
+  "name": "tetris-cursor",
+  "version": "1.0.0",
+  "description": "Browser Tetris game built with Cursor AI (workbook ch.4-6).",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}
